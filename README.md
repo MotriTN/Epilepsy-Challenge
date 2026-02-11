@@ -30,9 +30,9 @@
 This project was built collaboratively.
 
 **Collaborators:**
--   houssem.ayadi01@gmail.com
--   azizgassara00@gmail.com
--   Bouthaljaemna@gmail.com
+-   mohameedtrigui@gmail.com
+-   raghdkcharem@aiesec.net
+-   saifeddineboukhris01@gmail.com
 
 ## 🌍 Features
 -   **Multi-Language Support**: Auto-detects locale.
