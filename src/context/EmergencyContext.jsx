@@ -15,42 +15,72 @@ export const EmergencyProvider = ({ children }) => {
     const [isActive, setIsActive] = useState(false);
     const [startTime, setStartTime] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0);
-    const [phase, setPhase] = useState('IDLE'); // IDLE, EMERGENCY, STABILIZING, RECOVERY
+    const [initialOffset, setInitialOffset] = useState(0); // New: Track start time offset
+    const [currentStep, setCurrentStep] = useState(0); // New: Track tunnel step
+    const [phase, setPhase] = useState('IDLE'); // IDLE, EMERGENCY, DANGER, RECOVERY
+    const [manualOverride, setManualOverride] = useState(false);
 
     useEffect(() => {
         let interval;
-        if (isActive && startTime) {
+        // Stop timer if in RECOVERY
+        if (isActive && startTime && phase !== 'RECOVERY') {
             interval = setInterval(() => {
                 const now = Date.now();
-                const elapsed = Math.floor((now - startTime) / 1000);
+                // Add initialOffset to the calculated elapsed time
+                const elapsed = Math.floor((now - startTime) / 1000) + initialOffset;
                 setElapsedTime(elapsed);
 
-                // Phase Logic
-                if (elapsed < 300) { // 0-5 mins
-                    setPhase('EMERGENCY');
-                } else if (elapsed < 600) { // 5-10 mins
-                    setPhase('STABILIZING');
-                } else { // 10+ mins
-                    setPhase('RECOVERY');
+                // Phase Logic (only if not manually overridden)
+                if (!manualOverride) {
+                    if (elapsed < 300) { // 0-5 mins
+                        setPhase('EMERGENCY');
+                    } else if (elapsed >= 300) { // > 5 mins -> DANGER
+                        setPhase('DANGER');
+                    }
                 }
             }, 1000);
         } else {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
-    }, [isActive, startTime]);
+    }, [isActive, startTime, manualOverride, initialOffset, phase]);
 
-    const startEmergency = () => {
+    const startEmergency = (offset = 0) => {
         setIsActive(true);
         setStartTime(Date.now());
-        setPhase('EMERGENCY');
+        setInitialOffset(offset); // Set the offset
+
+        // Immediate phase check based on offset
+        if (offset >= 300) {
+            setPhase('DANGER');
+        } else {
+            setPhase('EMERGENCY');
+        }
+
+        setManualOverride(false);
+        setCurrentStep(0); // Reset step
+    };
+
+    const nextStep = () => setCurrentStep(prev => prev + 1);
+    const prevStep = () => setCurrentStep(prev => Math.max(0, prev - 1));
+
+    const triggerRecovery = () => {
+        if (!isActive) {
+            setIsActive(true);
+            setStartTime(Date.now());
+        }
+        setPhase('RECOVERY');
+        setManualOverride(true);
     };
 
     const resetEmergency = () => {
         setIsActive(false);
         setStartTime(null);
         setElapsedTime(0);
+        setInitialOffset(0);
+        setCurrentStep(0);
         setPhase('IDLE');
+        setManualOverride(false);
     };
 
     const formatTime = (seconds) => {
@@ -63,7 +93,11 @@ export const EmergencyProvider = ({ children }) => {
         isActive,
         elapsedTime,
         phase,
+        currentStep, // Exported
         startEmergency,
+        nextStep, // Exported
+        prevStep, // Exported
+        triggerRecovery,
         resetEmergency,
         formatTime
     };
