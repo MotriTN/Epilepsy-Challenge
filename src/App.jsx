@@ -1,19 +1,23 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { EmergencyProvider } from './context/EmergencyContext';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import EmergencyPage from './pages/EmergencyPage';
+import LandingPage from './pages/LandingPage';
+import DashboardPage from './pages/DashboardPage';
+import './i18n';
+
+import { EmergencyProvider } from './context/EmergencyContext';
 
 function App() {
   return (
-    <Router>
-      <EmergencyProvider>
+    <EmergencyProvider>
+      <Router>
         <Routes>
-          <Route path="/" element={<div className="p-8 text-center text-white bg-slate-900 min-h-screen"><h1>The Anchor Protocol</h1><p>Navigate to /help/123 to see the emergency view.</p></div>} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/help/:userId" element={<EmergencyPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </EmergencyProvider>
-    </Router>
+      </Router>
+    </EmergencyProvider>
   );
 }
 

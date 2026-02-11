@@ -19,6 +19,7 @@ export const EmergencyProvider = ({ children }) => {
     const [currentStep, setCurrentStep] = useState(0); // New: Track tunnel step
     const [phase, setPhase] = useState('IDLE'); // IDLE, EMERGENCY, DANGER, RECOVERY
     const [manualOverride, setManualOverride] = useState(false);
+    const [metadata, setMetadata] = useState({}); // New: Store session metadata
 
     useEffect(() => {
         let interval;
@@ -45,10 +46,11 @@ export const EmergencyProvider = ({ children }) => {
         return () => clearInterval(interval);
     }, [isActive, startTime, manualOverride, initialOffset, phase]);
 
-    const startEmergency = (offset = 0) => {
+    const startEmergency = (offset = 0, meta = {}) => {
         setIsActive(true);
         setStartTime(Date.now());
         setInitialOffset(offset); // Set the offset
+        setMetadata(meta);
 
         // Immediate phase check based on offset
         if (offset >= 300) {
@@ -94,6 +96,7 @@ export const EmergencyProvider = ({ children }) => {
         elapsedTime,
         phase,
         currentStep, // Exported
+        metadata, // Exported
         startEmergency,
         nextStep, // Exported
         prevStep, // Exported
