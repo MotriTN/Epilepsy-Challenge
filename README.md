@@ -41,3 +41,9 @@ This project was built collaboratively.
 -   **Interactive Triage**: Calibrates seizure timer based on onset.
 -   **Two-Tap Safety**: Prevents accidental emergency calls.
 -   **Recovery Mode**: Google Maps integration and breathing exercises.
+
+## 🚀 Live Website
+https://epilepsy-challenge.vercel.app/help/123
+
+## 🎤 Pitch Video
+https://youtu.be/GteQZu-esno?si=xeeO-TuldIGh4aU5
