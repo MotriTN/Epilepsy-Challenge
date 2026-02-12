@@ -42,8 +42,9 @@ This project was built collaboratively.
 -   **Two-Tap Safety**: Prevents accidental emergency calls.
 -   **Recovery Mode**: Google Maps integration and breathing exercises.
 
-## 🚀 Live Website
-[[https://epilepsy-challenge.vercel.app/help/123](https://epilepsy-challenge.vercel.app/)](https://epilepsy-challenge.vercel.app/help/123)
+## 🚀 Live Website[
+[[https://epilepsy-challenge.vercel.app/help/123](https://epilepsy-challenge.vercel.app/)](https://epilepsy-challenge.vercel.app/help/123)](https://epilepsy-challenge.vercel.app/)
+<img width="1105" height="667" alt="image" src="https://github.com/user-attachments/assets/edc66f40-2540-4a07-8dcb-c2e89c91f854" />
 
 ## 🎤 Pitch Video
 https://youtu.be/GteQZu-esno?si=xeeO-TuldIGh4aU5
