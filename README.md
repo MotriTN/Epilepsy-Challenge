@@ -47,4 +47,4 @@ This project was built collaboratively.
 <img width="1105" height="667" alt="image" src="https://github.com/user-attachments/assets/edc66f40-2540-4a07-8dcb-c2e89c91f854" />
 
 ## 🎤 Pitch Video
-https://youtu.be/GteQZu-esno?si=xeeO-TuldIGh4aU5
+[https://youtu.be/GteQZu-esno?si=xeeO-TuldIGh4aU5](https://www.youtube.com/watch?v=GteQZu-esno)
